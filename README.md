@@ -29,7 +29,7 @@ Use it like:
 ```r
 
 # Load the package
-library(fqtk)
+library(fqtkWrapper)
 
 # Define the input parameters e.g.
 inputs <- c("input_file.fastq.gz")
