@@ -1,0 +1,17 @@
+Package: fqtkWrapper
+Title: R package wrapper around the command-line tool 'fqtk', developed by Fulcrum Genomics.
+Version: 0.0.0.9000
+Authors@R: 
+    person("Moritz", "Broft", , "moritz.broft@gmail.com", role = c("aut", "cre"))
+Description: Provides an R wrapper around the command-line tool 'fqtk', developed by
+    Fulcrum Genomics, for working with FASTQ files. This package allows users to integrate
+    fqtk functionality directly into R workflows. If you use 'fqtk' or this wrapper in your
+    work, please cite the original tool as: Homer et al. (2024) <https://doi.org/10.5281/zenodo.13345414>.
+License: MIT
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Config/rextendr/version: 0.4.1.9000
+SystemRequirements: Cargo (Rust's package manager), rustc
+Depends: 
+    R (>= 4.2)

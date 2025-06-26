@@ -1,0 +1,7 @@
+^fqtk\.wrapper\.Rproj$
+^\.Rproj\.user$
+^src/\.cargo$
+^src/rust/vendor$
+^src/rust/target$
+^src/Makevars$
+^src/Makevars\.win$
