@@ -1,6 +1,15 @@
 use extendr_api::prelude::*;
 use std::process::{Command};
 
+/// Exposes the `fqtk demux` functionality as a Rust function that can be called from R.
+/// 
+/// @param inputs A character vector of input FASTQ file paths.
+/// @param max_mismatches An integer specifying the maximum number of mismatches allowed during demultiplexing.
+/// @param read_structures A character vector specifying the read structures for parsing barcodes and sequences.
+/// @param sample_metadata A string specifying the path to the CSV or TSV file containing sample metadata.
+/// @param output A string specifying the output directory or file path for demultiplexed results.
+/// 
+/// @return A character string indicating success or the error message.
 /// @export
 #[extendr]
 fn fqtk_demux(

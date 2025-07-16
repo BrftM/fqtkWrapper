@@ -9,7 +9,7 @@ env_debug <- Sys.getenv("DEBUG")
 env_not_cran <- Sys.getenv("NOT_CRAN")
 
 # check if the vendored zip file exists
-vendor_exists <- file.exists("src/rust/vendor.tar.xz")
+vendor_exists <- file.exists("src/rfqtk/vendor.tar.xz")
 
 is_not_cran <- env_not_cran != ""
 is_debug <- env_debug != ""
@@ -28,7 +28,7 @@ if (!is_not_cran) {
 # we set cran flags only if NOT_CRAN is empty and if
 # the vendored crates are present.
 .cran_flags <- ifelse(
-  !is_not_cran && vendor_exists,
+  vendor_exists,
   "-j 2 --offline",
   ""
 )
