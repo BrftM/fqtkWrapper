@@ -10,10 +10,33 @@
 #' @useDynLib fqtkWrapper, .registration = TRUE
 NULL
 
-#' Function to call the fqtk CLI command for demultiplexing.
-#' Exposes the demux functionality as a Rust function that can be called from R.
+#' Call the `fqtk demux` CLI command from R
+#'
+#' This function provides access to the `fqtk demux` command-line tool
+#' via a Rust-backed interface.
+#'
+#' @param inputs A character vector of input FASTQ file paths.
+#' @param max_mismatches An integer specifying the maximum number of mismatches allowed during demultiplexing.
+#' @param read_structures A character vector specifying read structures used for parsing barcodes and sequences.
+#' @param sample_metadata A string giving the path to a CSV or TSV file containing sample metadata.
+#' @param output A string specifying the output file or directory for demultiplexed results.
+#'
+#' @return A character string indicating success or an error message.
+#'
 #' @export
-fqtk_demux <- function(inputs, max_mismatches, read_structures, sample_metadata, output) .Call(wrap__fqtk_demux, inputs, max_mismatches, read_structures, sample_metadata, output)
-
+#'
+#' @examples
+#' \dontrun{
+#' fqtk_demux(
+#'   inputs = c("sample_R1.fastq", "sample_R2.fastq"),
+#'   max_mismatches = 1,
+#'   read_structures = c("8B", "T", "T"),
+#'   sample_metadata = "samples.tsv",
+#'   output = tempfile("fqtk_output_")
+#' )
+#' }
+fqtk_demux <- function(inputs, max_mismatches, read_structures, sample_metadata, output) {
+  .Call(wrap__fqtk_demux, inputs, max_mismatches, read_structures, sample_metadata, output)
+}
 
 # nolint end

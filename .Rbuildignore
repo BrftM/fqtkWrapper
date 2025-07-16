@@ -1,7 +1,20 @@
-^fqtkWrapper\.Rproj$
-^\.Rproj\.user$
-^src/\.cargo$
-^src/rust/vendor$
-^src/rust/target$
-^src/Makevars$
-^src/Makevars\.win$
+^.*\.Rproj$               # RStudio project files
+^\.Rproj\.user$           # RStudio user settings
+^\.Rhistory$              # R history file
+^\.Rcheck$                # Check directory
+
+^\.git$                   # Git folder
+^\.github$               # GitHub workflows and config
+^README\.md$             # Keep if README is not for CRAN vignette
+^\.travis\.yml$          # Old CI
+^appveyor\.yml$          # Old CI
+
+^src/rfqtk/target$        # Rust build artifacts (fqtk)
+^src/rfqtk/vendor/$       # Vendored crates (fqtk)
+^src/rfqtk/target$     # Rust build artifacts (fqtk)
+^src/rfqtk/vendor/$    # Vendored crates (fqtk)
+
+^src/vendor/$             # Catch-all fallback
+^.*\.lock$                # Cargo.lock, etc.
+^.*\.rs\.bk$              # Rust backup files
+^.*\.rds$                 # R serialized objects

@@ -2,12 +2,36 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{fqtk_demux}
 \alias{fqtk_demux}
-\title{Function to call the fqtk CLI command for demultiplexing.
-Exposes the demux functionality as a Rust function that can be called from R.}
+\title{Call the \verb{fqtk demux} CLI command from R}
 \usage{
 fqtk_demux(inputs, max_mismatches, read_structures, sample_metadata, output)
 }
+\arguments{
+\item{inputs}{A character vector of input FASTQ file paths.}
+
+\item{max_mismatches}{An integer specifying the maximum number of mismatches allowed during demultiplexing.}
+
+\item{read_structures}{A character vector specifying read structures used for parsing barcodes and sequences.}
+
+\item{sample_metadata}{A string giving the path to a CSV or TSV file containing sample metadata.}
+
+\item{output}{A string specifying the output file or directory for demultiplexed results.}
+}
+\value{
+A character string indicating success or an error message.
+}
 \description{
-Function to call the fqtk CLI command for demultiplexing.
-Exposes the demux functionality as a Rust function that can be called from R.
+This function provides access to the \verb{fqtk demux} command-line tool
+via a Rust-backed interface.
+}
+\examples{
+\dontrun{
+fqtk_demux(
+  inputs = c("sample_R1.fastq", "sample_R2.fastq"),
+  max_mismatches = 1,
+  read_structures = c("8B", "T", "T"),
+  sample_metadata = "samples.tsv",
+  output = tempfile("fqtk_output_")
+)
+}
 }
