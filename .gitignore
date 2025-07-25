@@ -19,3 +19,4 @@ inst/AUTHORS
 .RData
 .Rproj.user
 .Rhistory
+*.tar.gz
