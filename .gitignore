@@ -3,9 +3,10 @@ src/*.so
 src/*.dll
 src/*.a
 src/rfqtk/target/*
-src/rfqtk/vendor.tar.xz
-src/rfqtk/vendor/*
+
 inst/AUTHORS
+*.tar.gz
+*.gz
 *.rds
 
 # Ignore Rcheck directory
@@ -17,6 +18,16 @@ inst/AUTHORS
 # Ignore R-related files that should not be in a package tarball
 .Rhistory
 .RData
-.Rproj.user
 .Rhistory
+
+.Rproj.user
+inst/doc
+docs
+revdep/
+src/vendor
+src/rfqtk/vendor
+src/Makevars
+src/Makevars.win
 *.tar.gz
+*.Rcheck
+rfqtk/target/
