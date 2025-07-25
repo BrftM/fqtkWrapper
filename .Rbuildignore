@@ -1,31 +1,53 @@
+# RStudio & R project files
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^src/rfqtk/target
-^src/rfqtk/vendor/
-\.lock$
-\.rs\.bk$
-^README.md$
-^.travis.yml$
-^appveyor.yml$
+^\.Rhistory$
+^\.Rcheck$
+^\.rds$
+
+# Git and GitHub
+^\.git$
 ^\.github$
 
-.gitignore
-.Rhistory
-.cargo-checksum.json
-.Rproj.user
-^\.rds
-
-^\.git$
-^\.Rcheck$
-^\.Rhistory$
-^\.Rproj\.user$
-src/vendor/*
-^src/rfqtk/vendor$
-
-
+# Documentation & CI
+^README\.md$
+^README\.Rmd$
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
+^CODE_OF_CONDUCT\.md$
+^appveyor\.yml$
+^\.travis\.yml$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+
+# Build & configuration artifacts
+^justfile$
+^\.env$
+^\.pre-commit-config.yaml$
+^\.python-version$
+^\.lintr$
+^\.venv$
+^renv$
+^renv\.lock$
+^LICENSE\.md$
+
+# Rust-related
+^\.cargo-checksum\.json$
+^src/\.cargo$
+^src/.*/target/
+^src/.*/vendor/
+^src/rfqtk/target/
+^src/rfqtk/target/release/
 ^src/rfqtk/vendor$
-^src/rfqtk/target$
+^src/rfqtk/vendor-authors\.R$
+^src/rust/target/
+
+# Makevars
 ^src/Makevars$
 ^src/Makevars\.win$
+
+# Misc
+\.lock$
+\.rs\.bk$
+^.*\.gitkeep$
