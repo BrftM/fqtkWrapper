@@ -21,3 +21,11 @@
 ^\.Rproj\.user$
 src/vendor/*
 ^src/rfqtk/vendor$
+
+
+^cran-comments\.md$
+^CRAN-SUBMISSION$
+^src/rfqtk/vendor$
+^src/rfqtk/target$
+^src/Makevars$
+^src/Makevars\.win$
