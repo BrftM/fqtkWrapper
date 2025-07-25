@@ -37,12 +37,10 @@
 ^src/\.cargo$
 ^src/.*/target/
 ^src/.*/vendor/
-^src/rfqtk/target/
-^src/rfqtk/target/release/
+^src/rfqtk/target$
+^src/rfqtk/target/release$
 ^src/rfqtk/vendor$
 ^src/rfqtk/vendor-authors\.R$
-^src/rfqtk/target/
-
 
 # Makevars
 ^src/Makevars$
