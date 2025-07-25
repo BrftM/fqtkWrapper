@@ -21,13 +21,14 @@ $(STATLIB):
 	if [ -f ./rfqtk/vendor.tar.xz ]; then \
 		tar xf rfqtk/vendor.tar.xz && \
 		mkdir -p $(CARGOTMP) && \
-		cp rfqtk/.cargo/config.toml $(CARGOTMP)/config.toml; \
+		cp rfqtk/vendor-config.toml $(CARGOTMP)/config.toml; \
 	fi
 
 	export CARGO_HOME=$(CARGOTMP) && \
 	export LIBRARY_PATH="$(LIBRARY_PATH);$(CURDIR)/$(TARGET_DIR)/libgcc_mock" && \
 	RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" cargo build @CRAN_FLAGS@ --target=$(TARGET) --lib @PROFILE@ --manifest-path=rfqtk/Cargo.toml --target-dir=$(TARGET_DIR)
-	
+
+	# Always clean up CARGOTMP
 	rm -Rf $(CARGOTMP);
 
 rust_clean: $(SHLIB)
