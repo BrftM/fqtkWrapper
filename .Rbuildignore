@@ -41,7 +41,8 @@
 ^src/rfqtk/target/release/
 ^src/rfqtk/vendor$
 ^src/rfqtk/vendor-authors\.R$
-^src/rust/target/
+^src/rfqtk/target/
+
 
 # Makevars
 ^src/Makevars$
