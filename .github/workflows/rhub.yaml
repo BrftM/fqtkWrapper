@@ -68,9 +68,7 @@ jobs:
           directory = "vendor"
           EOF
 
-          if [[ "$RUNNER_OS" != "Windows" ]]; then
-            tar -cJf vendor.tar.xz vendor
-          fi
+          tar -cJf vendor.tar.xz vendor
 
       - name: Extract vendor.tar.xz
         run: |
@@ -129,9 +127,7 @@ jobs:
           directory = "vendor"
           EOF
 
-          if [[ "$RUNNER_OS" != "Windows" ]]; then
-            tar -cJf vendor.tar.xz vendor
-          fi
+          tar -cJf vendor.tar.xz vendor
 
       - uses: r-hub/actions/setup-r@v1
         with:
