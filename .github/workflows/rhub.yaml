@@ -61,17 +61,6 @@ jobs:
 
           tar -cJf vendor.tar.xz vendor
 
-      - name: Extract vendor.tar.xz
-        run: |
-          if [ -f ./vendor.tar.xz ]; then
-            mkdir -p vendor
-            tar -xf vendor.tar.xz -C vendor
-            echo "Extracted vendor.tar.xz into ./vendor"
-          else
-            echo "vendor.tar.xz not found!"
-            exit 1
-          fi
-
       - uses: r-hub/actions/platform-info@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
