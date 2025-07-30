@@ -27,7 +27,6 @@ $(STATLIB):
 	export CARGO_HOME=$(CARGOTMP) && \
 	export LIBRARY_PATH="$(LIBRARY_PATH);$(CURDIR)/$(TARGET_DIR)/libgcc_mock" && \
 	RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" cargo build -j 2 --offline --target=$(TARGET) --lib --release --manifest-path=rfqtk/Cargo.toml --target-dir=$(TARGET_DIR)
-
 	# Always clean up CARGOTMP
 	rm -Rf $(CARGOTMP);
 

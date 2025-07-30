@@ -32,11 +32,10 @@ jobs:
       platforms: ${{ steps.rhub-setup.outputs.platforms }}
 
     steps:
-    # NO NEED TO CHECKOUT HERE
-    - uses: r-hub/actions/setup@v1
-      with:
-        config: ${{ github.event.inputs.config }}
-      id: rhub-setup
+      - uses: r-hub/actions/setup@v1
+        with:
+          config: ${{ github.event.inputs.config }}
+        id: rhub-setup
 
   linux-containers:
     needs: setup
@@ -52,16 +51,38 @@ jobs:
 
     steps:
       - uses: r-hub/actions/checkout@v1
+
+      - name: Build and vendor Rust crate
+        shell: bash
+        run: |
+          cd src/rfqtk
+          cargo update
+          cargo vendor vendor > vendor-config.toml
+
+          mkdir -p .cargo
+          cat <<EOF > .cargo/config.toml
+          [source.crates-io]
+          replace-with = "vendored-sources"
+
+          [source.vendored-sources]
+          directory = "vendor"
+          EOF
+
+          if [[ "$RUNNER_OS" != "Windows" ]]; then
+            tar -cJf vendor.tar.xz vendor
+          fi
+
       - name: Extract vendor.tar.xz
         run: |
-                if [ -f ./vendor.tar.xz ]; then
-                  mkdir -p vendor
-                  tar -xf vendor.tar.xz -C vendor
-                  echo "Extracted vendor.tar.xz into ./vendor"
-                else
-                  echo "vendor.tar.xz not found!"
-                  exit 1
-                fi
+          if [ -f ./vendor.tar.xz ]; then
+            mkdir -p vendor
+            tar -xf vendor.tar.xz -C vendor
+            echo "Extracted vendor.tar.xz into ./vendor"
+          else
+            echo "vendor.tar.xz not found!"
+            exit 1
+          fi
+
       - uses: r-hub/actions/platform-info@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
@@ -87,6 +108,27 @@ jobs:
 
     steps:
       - uses: r-hub/actions/checkout@v1
+
+      - name: Build and vendor Rust crate
+        shell: bash
+        run: |
+          cd src/rfqtk
+          cargo update
+          cargo vendor vendor > vendor-config.toml
+
+          mkdir -p .cargo
+          cat <<EOF > .cargo/config.toml
+          [source.crates-io]
+          replace-with = "vendored-sources"
+
+          [source.vendored-sources]
+          directory = "vendor"
+          EOF
+
+          if [[ "$RUNNER_OS" != "Windows" ]]; then
+            tar -cJf vendor.tar.xz vendor
+          fi
+
       - uses: r-hub/actions/setup-r@v1
         with:
           job-config: ${{ matrix.config.job-config }}
