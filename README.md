@@ -32,8 +32,8 @@ Use it like:
 library(fqtkWrapper)
 
 # Define the input parameters e.g.
-inputs <- c("input_file.fastq.gz")
-read_structures <- c("7B+T")
+inputs <- "input_file.fastq.gz"
+read_structures <- "7B+T"
 sample_metadata <- "samples.tsv"
 output <- "output_folder"
 
