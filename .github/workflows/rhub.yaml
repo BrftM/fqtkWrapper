@@ -59,8 +59,8 @@ jobs:
           cargo update
           cargo vendor vendor > vendor-config.toml
 
-          mkdir -p .cargo
-          cat <<EOF > .cargo/config.toml
+          mkdir -p "$HOME/.cargo"
+          cat <<EOF > "$HOME/.cargo/config.toml"
           [source.crates-io]
           replace-with = "vendored-sources"
 
@@ -87,11 +87,15 @@ jobs:
         with:
           token: ${{ secrets.RHUB_TOKEN }}
           job-config: ${{ matrix.config.job-config }}
+
       - uses: r-hub/actions/setup-deps@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
           job-config: ${{ matrix.config.job-config }}
+
       - uses: r-hub/actions/run-check@v1
+        env:
+          CARGO_HOME: $HOME/.cargo
         with:
           token: ${{ secrets.RHUB_TOKEN }}
           job-config: ${{ matrix.config.job-config }}
@@ -116,8 +120,8 @@ jobs:
           cargo update
           cargo vendor vendor > vendor-config.toml
 
-          mkdir -p .cargo
-          cat <<EOF > .cargo/config.toml
+          mkdir -p "$HOME/.cargo"
+          cat <<EOF > "$HOME/.cargo/config.toml"
           [source.crates-io]
           replace-with = "vendored-sources"
 
@@ -133,15 +137,20 @@ jobs:
         with:
           job-config: ${{ matrix.config.job-config }}
           token: ${{ secrets.RHUB_TOKEN }}
+
       - uses: r-hub/actions/platform-info@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
           job-config: ${{ matrix.config.job-config }}
+
       - uses: r-hub/actions/setup-deps@v1
         with:
           job-config: ${{ matrix.config.job-config }}
           token: ${{ secrets.RHUB_TOKEN }}
+
       - uses: r-hub/actions/run-check@v1
+        env:
+          CARGO_HOME: $HOME/.cargo
         with:
           job-config: ${{ matrix.config.job-config }}
           token: ${{ secrets.RHUB_TOKEN }}
