@@ -12,35 +12,27 @@ $(SHLIB): $(STATLIB)
 CARGOTMP = $(CURDIR)/.cargo
 VENDOR_DIR = $(CURDIR)/vendor
 
-
 # RUSTFLAGS appends --print=native-static-libs to ensure that 
 # the correct linkers are used. Use this for debugging if need. 
 #
 # CRAN note: Cargo and Rustc versions are reported during
 # configure via tools/msrv.R.
-#
-# When the NOT_CRAN flag is *not* set, the vendor.tar.xz, if present,
-# is unzipped and used for offline compilation.
 $(STATLIB):
-
-	# Check if NOT_CRAN is false and unzip vendor.tar.xz if so
-	if [ "$(NOT_CRAN)" != "true" ]; then \
-		if [ -f ./rfqtk/vendor.tar.xz ]; then \
-			tar xf rfqtk/vendor.tar.xz && \
-			mkdir -p $(CARGOTMP) && \
-			cp rfqtk/vendor-config.toml $(CARGOTMP)/config.toml; \
-		fi; \
+	if [ -f ./rfqtk/vendor.tar.xz ]; then \
+		tar xf rfqtk/vendor.tar.xz && \
+		mkdir -p $(CARGOTMP) && \
+		cp rfqtk/vendor-config.toml $(CARGOTMP)/config.toml; \
 	fi
 
-	export CARGO_HOME=$(CARGOTMP) && \
-	export PATH="$(PATH):$(HOME)/.cargo/bin" && \
-	RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" cargo build @CRAN_FLAGS@ --lib @PROFILE@ --manifest-path=./rfqtk/Cargo.toml --target-dir $(TARGET_DIR)
+	CARGO_HOME=$(CARGOTMP) \
+	PATH="$(PATH):$(HOME)/.cargo/bin" \
+	RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" \
+	cargo build @CRAN_FLAGS@ --lib @PROFILE@ --manifest-path=./rfqtk/Cargo.toml --target-dir $(TARGET_DIR)
 
-	# Always clean up CARGOTMP
-	rm -Rf $(CARGOTMP);
+	rm -Rf $(CARGOTMP)
 
 rust_clean: $(SHLIB)
 	rm -Rf $(CARGOTMP) $(VENDOR_DIR) @CLEAN_TARGET@
 
-clean:
+clean: rust_clean
 	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS) $(TARGET_DIR)
