@@ -3,8 +3,8 @@ Title: R Package Wrapper Around the Command-Line Tool 'fqtk', Developed by Fulcr
 Version: 0.0.1
 Date: 2025-07-16
 Authors@R: 
-    person("Moritz", "Broft", , "moritz.broft@gmail.com", role = c("aut", "cre"))
-Author: Moritz Broft [aut, cre]
+    person("Moritz", "Broft", email="moritz.broft@gmail.com",
+           role = c("aut", "cre"), comment = c(ORCID = "0009-0000-0144-9289"))
 Maintainer: Moritz Broft <moritz.broft@gmail.com>
 Description: Provides an R wrapper around the command-line tool 'fqtk', developed by
     Fulcrum Genomics, for working with FASTQ files. This package allows users to integrate
@@ -17,6 +17,6 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Config/rextendr/version: 0.4.1.9000
-SystemRequirements: Cargo (Rust's package manager), rustc
+SystemRequirements: Cargo (Rust's package manager), rustc, cmake
 Depends: 
     R (>= 4.2)

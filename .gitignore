@@ -3,6 +3,7 @@ src/*.so
 src/*.dll
 src/*.a
 src/rfqtk/target/*
+src/rfqtk/Cargo.lock
 
 inst/AUTHORS
 *.tar.gz
