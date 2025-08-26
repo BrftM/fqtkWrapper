@@ -18,7 +18,7 @@ fn fqtk_demux(
     read_structures: Vec<String>,      
     sample_metadata: String,           
     output: String                    
-) -> String {
+) -> RobjResult<String> {
 
     let mut command = Command::new("fqtk");
     command.arg("demux");
@@ -36,15 +36,19 @@ fn fqtk_demux(
            .arg("--max-mismatches").arg(max_mismatches.to_string());
 
     match command.output() {
-        Ok(output) => {
+        Ok(out) => {
             if output.status.success() {
                 "Demux operation completed successfully.".to_string()
             } else {
-                let err_msg = String::from_utf8_lossy(&output.stderr);
-                format!("Demux failed: {}", err_msg)
+                let code = out.status.code().unwrap_or(-1);
+                let err_msg = String::from_utf8_lossy(&out.stderr).to_string();
+                Err(Error::from(format!(
+                    "fqtk demux failed (exit code {}): {}",
+                    code, err_msg
+                )))
             }
         }
-        Err(e) => format!("Failed to execute command: {}", e),
+        Err(e) => Err(Error::from(format!("Failed to execute 'fqtk': {e}"))),
     }
 }
 
