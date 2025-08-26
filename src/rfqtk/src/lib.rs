@@ -37,7 +37,7 @@ fn fqtk_demux(
 
     match command.output() {
         Ok(out) => {
-            if output.status.success() {
+            if out.status.success() {
                 "Demux operation completed successfully.".to_string()
             } else {
                 let code = out.status.code().unwrap_or(-1);
