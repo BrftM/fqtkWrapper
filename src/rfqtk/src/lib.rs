@@ -38,7 +38,7 @@ fn fqtk_demux(
     match command.output() {
         Ok(out) => {
             if out.status.success() {
-                "Demux operation completed successfully.".to_string()
+                Ok("Demux operation completed successfully.".to_string())
             } else {
                 let code = out.status.code().unwrap_or(-1);
                 let err_msg = String::from_utf8_lossy(&out.stderr).to_string();
