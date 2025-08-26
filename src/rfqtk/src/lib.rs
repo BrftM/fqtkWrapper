@@ -1,5 +1,6 @@
 use extendr_api::prelude::*;
 use std::process::{Command};
+use std::io::{BufRead, BufReader};
 
 /// Exposes the `fqtk demux` functionality as a Rust function that can be called from R.
 /// 
@@ -34,21 +35,41 @@ fn fqtk_demux(
     command.arg("--sample-metadata").arg(sample_metadata)
            .arg("--output").arg(output)
            .arg("--max-mismatches").arg(max_mismatches.to_string());
+    
+    command.stdout(std::process::Stdio::piped());
+    command.stderr(std::process::Stdio::piped());
 
-    match command.output() {
-        Ok(out) => {
-            if out.status.success() {
-                Ok("Demux operation completed successfully.".to_string())
-            } else {
-                let code = out.status.code().unwrap_or(-1);
-                let err_msg = String::from_utf8_lossy(&out.stderr).to_string();
-                Err(Error::from(format!(
-                    "fqtk demux failed (exit code {}): {}",
-                    code, err_msg
-                )))
+    let mut child = command.spawn()
+        .map_err(|e| Error::from(format!("Failed to run fqtk: {e}")))?;
+
+    // stdout
+    if let Some(stdout) = child.stdout.take() {
+        let reader = BufReader::new(stdout);
+        for line in reader.lines() {
+            if let Ok(l) = line {
+                // print directly to R console
+                rprintln!("{}", l);
             }
         }
-        Err(e) => Err(Error::from(format!("Failed to execute 'fqtk': {e}"))),
+    }
+
+    // stderr
+    if let Some(stderr) = child.stderr.take() {
+        let reader = BufReader::new(stderr);
+        for line in reader.lines() {
+            if let Ok(l) = line {
+                rprintln!("stderr: {}", l);
+            }
+        }
+    }
+
+    let status = child.wait()
+        .map_err(|e| Error::from(format!("Failed to wait for fqtk: {e}")))?;
+
+    if status.success() {
+        Ok("fqtk demux completed successfully.".to_string())
+    } else {
+        Err(Error::from(format!("fqtk demux failed: {:?}", status)))
     }
 }
 
