@@ -18,7 +18,7 @@ fn fqtk_demux(
     read_structures: Vec<String>,      
     sample_metadata: String,           
     output: String                    
-) -> RobjResult<String> {
+) -> Result<String> {
 
     let mut command = Command::new("fqtk");
     command.arg("demux");
